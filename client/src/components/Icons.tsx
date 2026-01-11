@@ -83,8 +83,8 @@ export const TrophyIcon = () => (
   </svg>
 );
 
-export const ActivityIcon = () => (
-  <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const ActivityIcon = (props: any) => (
+  <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M8 32H16L20 20L28 44L36 28L44 32H56"
       stroke="#FF9500"

@@ -16,6 +16,7 @@ import {
   Droplet,
   Apple,
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface FAQItem {
   id: string;
@@ -25,94 +26,95 @@ interface FAQItem {
   icon?: React.ReactNode;
 }
 
-const FAQ_ITEMS: FAQItem[] = [
-  {
-    id: "1",
-    category: "Activité Physique",
-    question: "Combien de temps d'activité physique par jour?",
-    answer: "L'OMS recommande au moins 150 minutes d'activité modérée ou 75 minutes d'activité vigoureuse par semaine pour les adultes. Cela équivaut à environ 30 minutes, 5 jours par semaine.",
-    icon: <Activity className="w-5 h-5" />,
-  },
-  {
-    id: "2",
-    category: "Activité Physique",
-    question: "Quelle est la différence entre activité modérée et vigoureuse?",
-    answer: "Activité modérée: vous pouvez parler mais pas chanter (ex: marche rapide, vélo léger). Activité vigoureuse: vous ne pouvez pas parler (ex: course, sports intensifs).",
-    icon: <Dumbbell className="w-5 h-5" />,
-  },
-  {
-    id: "3",
-    category: "Santé",
-    question: "Qu'est-ce que l'IMC et pourquoi c'est important?",
-    answer: "L'IMC (Indice de Masse Corporelle) = poids (kg) / taille² (m²). Il évalue si votre poids est sain. Normal: 18.5-24.9, Surpoids: 25-29.9, Obésité: 30+.",
-    icon: <Scale className="w-5 h-5" />,
-  },
-  {
-    id: "4",
-    category: "Santé",
-    question: "Comment réduire le temps assis?",
-    answer: "Levez-vous toutes les heures, prenez les escaliers, marchez pendant les appels, faites du stretching. Même 2-3 minutes de mouvement toutes les heures aide.",
-    icon: <Sofa className="w-5 h-5" />,
-  },
-  {
-    id: "5",
-    category: "IPAQ",
-    question: "Qu'est-ce que le score IPAQ?",
-    answer: "L'IPAQ mesure votre niveau d'activité physique en MET-min/semaine. Faible: <600, Modéré: 600-2999, Élevé: ≥3000. Plus le score est élevé, mieux c'est.",
-    icon: <BarChart3 className="w-5 h-5" />,
-  },
-  {
-    id: "6",
-    category: "IPAQ",
-    question: "Comment augmenter mon score IPAQ?",
-    answer: "Augmentez votre activité vigoureuse (8 METs), modérée (4 METs) ou marche (3.3 METs). Même 10 minutes supplémentaires par jour fait une différence.",
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
-  {
-    id: "7",
-    category: "Conseils",
-    question: "Comment commencer un programme d'exercice?",
-    answer: "Commencez progressivement: 10-15 min par jour, augmentez graduellement. Choisissez une activité que vous aimez. Consultez un médecin avant de commencer.",
-    icon: <Target className="w-5 h-5" />,
-  },
-  {
-    id: "8",
-    category: "Conseils",
-    question: "Quel est le meilleur moment pour faire du sport?",
-    answer: "Le meilleur moment est celui où vous êtes régulier. Matin: plus d'énergie. Soir: muscles plus chauds. L'important est la constance.",
-    icon: <Clock className="w-5 h-5" />,
-  },
-  {
-    id: "9",
-    category: "Nutrition",
-    question: "Quelle est l'importance de l'hydratation?",
-    answer: "Buvez 2-3 litres d'eau par jour. L'hydratation améliore les performances, la récupération et la santé générale.",
-    icon: <Droplet className="w-5 h-5" />,
-  },
-  {
-    id: "10",
-    category: "Nutrition",
-    question: "Faut-il manger avant ou après l'exercice?",
-    answer: "Avant: léger snack (banane, yaourt) 30-60 min avant. Après: protéines + glucides dans les 30-60 min pour la récupération.",
-    icon: <Apple className="w-5 h-5" />,
-  },
-];
-
 export default function FAQ() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
+  const [selectedCategory, setSelectedCategory] = useState<string>(t.allCategories);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = [
-    "Tous",
+  const FAQ_ITEMS: FAQItem[] = useMemo(() => [
+    {
+      id: "1",
+      category: t.catPhysicalActivity,
+      question: t.faqQ1,
+      answer: t.faqA1,
+      icon: <Activity className="w-5 h-5" />,
+    },
+    {
+      id: "2",
+      category: t.catPhysicalActivity,
+      question: t.faqQ2,
+      answer: t.faqA2,
+      icon: <Dumbbell className="w-5 h-5" />,
+    },
+    {
+      id: "3",
+      category: t.catHealth,
+      question: t.faqQ3,
+      answer: t.faqA3,
+      icon: <Scale className="w-5 h-5" />,
+    },
+    {
+      id: "4",
+      category: t.catHealth,
+      question: t.faqQ4,
+      answer: t.faqA4,
+      icon: <Sofa className="w-5 h-5" />,
+    },
+    {
+      id: "5",
+      category: t.catIPAQ,
+      question: t.faqQ5,
+      answer: t.faqA5,
+      icon: <BarChart3 className="w-5 h-5" />,
+    },
+    {
+      id: "6",
+      category: t.catIPAQ,
+      question: t.faqQ6,
+      answer: t.faqA6,
+      icon: <TrendingUp className="w-5 h-5" />,
+    },
+    {
+      id: "7",
+      category: t.catAdvice,
+      question: t.faqQ7,
+      answer: t.faqA7,
+      icon: <Target className="w-5 h-5" />,
+    },
+    {
+      id: "8",
+      category: t.catAdvice,
+      question: t.faqQ8,
+      answer: t.faqA8,
+      icon: <Clock className="w-5 h-5" />,
+    },
+    {
+      id: "9",
+      category: t.catNutrition,
+      question: t.faqQ9,
+      answer: t.faqA9,
+      icon: <Droplet className="w-5 h-5" />,
+    },
+    {
+      id: "10",
+      category: t.catNutrition,
+      question: t.faqQ10,
+      answer: t.faqA10,
+      icon: <Apple className="w-5 h-5" />,
+    },
+  ], [t]);
+
+  const categories = useMemo(() => [
+    t.allCategories,
     ...Array.from(new Set(FAQ_ITEMS.map((item) => item.category))),
-  ];
+  ], [FAQ_ITEMS, t]);
 
   const filteredFAQ = useMemo(() => {
     let filtered = FAQ_ITEMS;
 
-    if (selectedCategory !== "Tous") {
+    if (selectedCategory !== t.allCategories) {
       filtered = filtered.filter((item) => item.category === selectedCategory);
     }
 
@@ -126,14 +128,14 @@ export default function FAQ() {
     }
 
     return filtered;
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, FAQ_ITEMS, t]);
 
   return (
     <>
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
+        className="fixed bottom-16 right-6 z-40 w-14 h-14 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
         aria-label="Ouvrir FAQ"
       >
         {isOpen ? (
@@ -150,9 +152,9 @@ export default function FAQ() {
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-t-xl">
             <div className="flex items-center gap-2 mb-2">
               <Zap className="w-5 h-5" />
-              <h3 className="font-bold text-lg">Questions Fréquentes</h3>
+              <h3 className="font-bold text-lg">{t.faqTitle}</h3>
             </div>
-            <p className="text-xs opacity-90">Conseils fitness & santé personnalisés</p>
+            <p className="text-xs opacity-90">{t.faqSubtitle}</p>
           </div>
 
           {/* Search Bar */}
@@ -161,7 +163,7 @@ export default function FAQ() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Rechercher une question..."
+                placeholder={t.searchQuestion}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
@@ -229,10 +231,10 @@ export default function FAQ() {
               <div className="flex flex-col items-center justify-center h-full py-8 text-center">
                 <Search className="w-8 h-8 text-muted-foreground mb-2 opacity-50" />
                 <p className="text-sm text-muted-foreground">
-                  Aucune question trouvée
+                  {t.noQuestionsFound}
                 </p>
                 <p className="text-xs text-muted-foreground/70 mt-1">
-                  Essayez une autre recherche
+                  {t.tryAnotherSearch}
                 </p>
               </div>
             )}
@@ -240,7 +242,7 @@ export default function FAQ() {
 
           {/* Footer */}
           <div className="px-4 py-3 border-t border-border bg-secondary/30 text-xs text-muted-foreground text-center">
-            {filteredFAQ.length} question{filteredFAQ.length !== 1 ? "s" : ""} trouvée{filteredFAQ.length !== 1 ? "s" : ""}
+            {filteredFAQ.length} {t.questionsFound}
           </div>
         </div>
       )}

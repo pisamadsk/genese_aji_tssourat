@@ -95,10 +95,13 @@ export default function Results() {
         {/* Hero Image */}
         <div className="relative h-40 rounded-lg overflow-hidden">
           <img
-            src="/stability-hero.jpg"
-            alt="Résultats"
+            src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
+            alt="Résultats - Homme en fitness"
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
+            <span className="text-white font-medium">Vos progrès et analyses</span>
+          </div>
         </div>
 
         {/* Global Score */}

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Download } from "lucide-react";
 import { jsPDF } from "jspdf";
 import { BackIcon, LogoutIcon, NotificationIcon, LanguageIcon, MoonIcon, SunIcon, LogoutIconSmall } from "@/components/Icons";
@@ -15,9 +16,9 @@ import { BackIcon, LogoutIcon, NotificationIcon, LanguageIcon, MoonIcon, SunIcon
 export default function Settings() {
   const [, setLocation] = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [user, setUser] = useState<any>(null);
   const [notifications, setNotifications] = useState(true);
-  const [language, setLanguage] = useState("fr");
   const [bmi, setBmi] = useState<{ value: string; label: string; color: string } | null>(null);
 
   useEffect(() => {
@@ -226,9 +227,9 @@ export default function Settings() {
             onClick={() => setLocation("/home")}
             className="p-2 hover:bg-secondary rounded-lg transition-colors text-foreground font-semibold"
           >
-<BackIcon /> Retour
+<BackIcon /> {t.back}
           </button>
-          <h1 className="text-lg font-bold text-foreground">Paramètres</h1>
+          <h1 className="text-lg font-bold text-foreground">{t.settings}</h1>
         </div>
       </div>
 
@@ -236,7 +237,7 @@ export default function Settings() {
       <div className="max-w-md mx-auto px-4 py-6 space-y-6">
         {/* Profile Section */}
         <div>
-          <h3 className="font-semibold text-foreground mb-3 px-1">Profil</h3>
+          <h3 className="font-semibold text-foreground mb-3 px-1">{t.profile}</h3>
           <Card className="p-4">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-16 h-16 rounded-full bg-orange-500/20 flex items-center justify-center">
@@ -252,7 +253,7 @@ export default function Settings() {
               </div>
             </div>
             <Button className="w-full bg-secondary hover:bg-secondary/80 text-foreground">
-              Modifier le Profil
+              {t.editProfile}
             </Button>
           </Card>
         </div>
@@ -260,16 +261,16 @@ export default function Settings() {
         {/* Personal Info */}
         <div>
           <h3 className="font-semibold text-foreground mb-3 px-1">
-            Informations Personnelles
+            {t.personalInfo}
           </h3>
           <Card className="p-4 space-y-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm text-muted-foreground">Âge</label>
+                <label className="text-sm text-muted-foreground">{t.age}</label>
                 <p className="font-semibold text-foreground">{user?.age} ans</p>
               </div>
               <div>
-                <label className="text-sm text-muted-foreground">Niveau</label>
+                <label className="text-sm text-muted-foreground">{t.level}</label>
                 <p className="font-semibold text-foreground capitalize">
                   {user?.activityLevel || "Non défini"}
                 </p>
@@ -280,13 +281,13 @@ export default function Settings() {
               <div className="grid grid-cols-2 gap-4 border-t border-border pt-3">
                 {user?.weight && (
                   <div>
-                    <label className="text-sm text-muted-foreground">Poids</label>
+                    <label className="text-sm text-muted-foreground">{t.weight}</label>
                     <p className="font-semibold text-foreground">{user.weight} kg</p>
                   </div>
                 )}
                 {user?.height && (
                   <div>
-                    <label className="text-sm text-muted-foreground">Taille</label>
+                    <label className="text-sm text-muted-foreground">{t.height}</label>
                     <p className="font-semibold text-foreground">{user.height} cm</p>
                   </div>
                 )}
@@ -297,7 +298,7 @@ export default function Settings() {
               <div className="border-t border-border pt-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="text-sm text-muted-foreground">IMC (Indice de Masse Corporelle)</label>
+                    <label className="text-sm text-muted-foreground">{t.bmi}</label>
                     <p className={`font-bold text-lg ${bmi.color}`}>{bmi.value}</p>
                   </div>
                   <div className={`px-3 py-1 rounded-full text-xs font-medium bg-secondary ${bmi.color}`}>
@@ -309,14 +310,14 @@ export default function Settings() {
 
             {user?.injuries && (
               <div className="border-t border-border pt-3">
-                <label className="text-sm text-muted-foreground">Blessures</label>
+                <label className="text-sm text-muted-foreground">{t.injuries}</label>
                 <p className="text-sm text-foreground mt-1">{user.injuries}</p>
               </div>
             )}
 
             {user?.medicalConditions && (
               <div className="border-t border-border pt-3">
-                <label className="text-sm text-muted-foreground">Conditions médicales</label>
+                <label className="text-sm text-muted-foreground">{t.medicalConditions}</label>
                 <p className="text-sm text-foreground mt-1">{user.medicalConditions}</p>
               </div>
             )}
@@ -326,14 +327,14 @@ export default function Settings() {
               className="w-full mt-4 border-primary/20 hover:bg-primary/5 text-primary bg-transparent border"
             >
               <Download className="w-4 h-4 mr-2" />
-              Télécharger mon bilan PDF
+              {t.downloadPdf}
             </Button>
           </Card>
         </div>
 
         {/* Preferences */}
         <div>
-          <h3 className="font-semibold text-foreground mb-3 px-1">Préférences</h3>
+          <h3 className="font-semibold text-foreground mb-3 px-1">{t.preferences}</h3>
           <Card className="p-4 space-y-4">
             {/* Theme Toggle */}
             <div className="flex items-center justify-between">
@@ -344,9 +345,9 @@ export default function Settings() {
                   <SunIcon />
                 )}
                 <div>
-                  <p className="font-semibold text-foreground">Thème</p>
+                  <p className="font-semibold text-foreground">{t.theme}</p>
                   <p className="text-xs text-muted-foreground">
-                    {theme === "dark" ? "Mode sombre" : "Mode normal"}
+                    {theme === "dark" ? t.darkMode : t.normalMode}
                   </p>
                 </div>
               </div>
@@ -370,9 +371,9 @@ export default function Settings() {
                 <div className="flex items-center gap-3">
                   <NotificationIcon />
                   <div>
-                    <p className="font-semibold text-foreground">Notifications</p>
+                    <p className="font-semibold text-foreground">{t.notifications}</p>
                     <p className="text-xs text-muted-foreground">
-                      Rappels de séances
+                      {t.reminders}
                     </p>
                   </div>
                 </div>
@@ -395,7 +396,7 @@ export default function Settings() {
             <div className="border-t border-border pt-4 mt-4">
               <div className="flex items-center gap-3 mb-3">
                 <LanguageIcon />
-                <p className="font-semibold text-foreground">Langue</p>
+                <p className="font-semibold text-foreground">{t.language}</p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
@@ -404,7 +405,7 @@ export default function Settings() {
                 ].map((lang) => (
                   <button
                     key={lang.code}
-                    onClick={() => setLanguage(lang.code)}
+                    onClick={() => setLanguage(lang.code as any)}
                     className={`py-2 px-3 rounded-lg font-medium text-sm transition-colors ${
                       language === lang.code
                         ? "bg-orange-500 text-white"
@@ -421,19 +422,19 @@ export default function Settings() {
 
         {/* About */}
         <div>
-          <h3 className="font-semibold text-foreground mb-3 px-1">À Propos</h3>
+          <h3 className="font-semibold text-foreground mb-3 px-1">{t.about}</h3>
           <Card className="p-4 space-y-3 text-sm">
             <div>
-              <label className="text-muted-foreground">Version</label>
+              <label className="text-muted-foreground">{t.version}</label>
               <p className="font-semibold text-foreground">1.0.0</p>
             </div>
             <div className="border-t border-border pt-3">
               <Button className="w-full bg-secondary hover:bg-secondary/80 text-foreground text-sm">
-                Conditions d'utilisation
+                {t.terms}
               </Button>
             </div>
             <Button className="w-full bg-secondary hover:bg-secondary/80 text-foreground text-sm">
-              Politique de confidentialité
+              {t.privacy}
             </Button>
           </Card>
         </div>
@@ -444,7 +445,7 @@ export default function Settings() {
           className="w-full bg-red-500/20 hover:bg-red-500/30 text-red-400 font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
         >
           <LogoutIconSmall />
-          Se déconnecter
+          {t.logout}
         </Button>
       </div>
     </div>
